@@ -11,9 +11,8 @@ const pool = new Pool({
 
 const getRestaurants = (req, res) => {
     pool.query('SELECT * FROM restaurants ORDER BY id ASC').then(results => {
-        res.status(200).json(results.rows)
+        res.status(200).json(results.rows);
     }).catch(err => {
-        res.send(err);
         res.sendStatus(500);
         res.end();
     })
@@ -21,9 +20,8 @@ const getRestaurants = (req, res) => {
 
 const getRestaurant = (req, res) => {
     pool.query('SELECT * FROM restaurants WHERE id=$1', [req.params.id]).then(results => {
-        res.status(200).json(results.rows[0])
+        res.status(200).json(results.rows[0]);
     }).catch(err => {
-        res.send(err);
         res.sendStatus(500);
         res.end();
     })

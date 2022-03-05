@@ -8,6 +8,9 @@ restaurantRoute.get('/', restaurantController.getRestaurants);
 // get restaurant info
 restaurantRoute.get('/:id', restaurantController.getRestaurant);
 
-
+// Fallback 
+restaurantRoute.get('*', function (req, res) {
+    res.send('404 - URL NOT FOUND', 404);
+});
 
 module.exports = restaurantRoute;
