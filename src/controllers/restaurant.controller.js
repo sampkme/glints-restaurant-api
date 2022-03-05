@@ -1,12 +1,12 @@
-var db = require('../config/database');
+// var db = require('../config/database');
 
 const getRestaurants = (req, res) => {
-    db.query('SELECT * FROM restaurants ORDER BY id ASC').then(results => {
-        res.status(200).json(results.rows);
-    }).catch(err => {
-        res.sendStatus(500);
+    // db.query('SELECT * FROM restaurants ORDER BY id ASC').then(results => {
+    //     res.status(200).json(results.rows);
+    // }).catch(err => {
+    //     res.sendStatus(500);
         res.end();
-    })
+    // })
 }
 
 const getRestaurant = (req, res) => {
