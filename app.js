@@ -5,6 +5,7 @@ const config = require('./src/config/config');
 const router = require("./src/routes/index");
 const cors = require('cors');
 const bodyParser = require("body-parser");
+const db = require("./src/models");
 
 
 // Log transactions
@@ -18,6 +19,9 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//sequelize syncing
+db.sequelize.sync();
 
 // Route
 app.get('/', function (req, res) {
