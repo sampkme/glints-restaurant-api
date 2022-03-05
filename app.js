@@ -8,9 +8,13 @@ const router = require("./route/route.js");
 app.use(morgan('combined'));
 
 // Route
+app.get('/', function(req,res) {
+    res.send("Welcome to the Restaurant API project. Please use /api as following specific urls EX: /api/restaurants");
+});
+
 app.use('/api', router);
 
 // Server listening to 3000
 app.listen(config.get('port'), function () {
-    console.log("SERVER STARTED ON localhost:3000");
+    console.log("SERVER STARTED ON localhost:" + config.get('port'));
 })
