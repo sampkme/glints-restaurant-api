@@ -1,5 +1,7 @@
 var express = require('express');
+const authRoute = require('./auth.routes');
 const restaurantRoute = require('./restaurant.routes');
+const userRoute = require('./user.routes');
 var router = express.Router();
 
 // Default URL
@@ -8,7 +10,13 @@ router.get('/', function (req, res) {
 });
 
 // restaurant route
+router.use('/auth', authRoute);
+
+// restaurant route
 router.use('/restaurants', restaurantRoute);
+
+// users route
+router.use('/users', userRoute);
 
 // Fallback 
 router.get('*', function (req, res) {
