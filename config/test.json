@@ -1,0 +1,10 @@
+{
+    "db": {
+      "host": "127.0.0.0",
+      "name": "glints-restaurant",
+      "user_name": "root",
+      "password": "saravana7",
+      "port": 5432
+    }
+  }
+  
