@@ -1,19 +1,30 @@
 const express = require("express");
 const app = express();
 const morgan = require('morgan');
-var config = require('./src/config/config');
+const config = require('./src/config/config');
 const router = require("./src/routes/index");
 const cors = require('cors');
+const bodyParser = require("body-parser");
+
 
 // Log transactions
 app.use(morgan('combined'));
+
+// CORS
+app.use(cors());
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Route
 app.get('/', function (req, res) {
     res.send("Welcome to the Restaurant API project. Please use /api as following specific urls EX: /api/restaurants");
 });
 
-app.use('/api', cors(), router);
+app.use('/api', router);
 
 // Server listening to 3000
 app.listen(config.get('port'), function () {
