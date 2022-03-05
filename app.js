@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 const morgan = require('morgan');
-var config = require('./config/config.js');
-const router = require("./route/route.js");
+var config = require('./src/config/config');
+const router = require("./src/routes/index");
 
 // Log transactions
 app.use(morgan('combined'));

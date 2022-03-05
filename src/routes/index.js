@@ -1,5 +1,5 @@
 var express = require('express');
-const restaurantRoute = require('../modules/restaurant/restaurant-route');
+const restaurantRoute = require('./restaurant-route');
 var router = express.Router();
 
 // Default URL
