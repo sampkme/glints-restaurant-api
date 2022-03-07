@@ -22,6 +22,11 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
+db.restaurant = require("../models/restaurant.model.js")(sequelize, Sequelize);
+db.restaurant_day = require("../models/restaurant-day.model.js")(sequelize, Sequelize);
+
+db.restaurant.hasMany(db.restaurant_day, { foreignKey: 'restaurant_id', sourceKey: 'id' });
+
 const User = db.user;
 
 db.sequelize.sync({ force: true }).then(() => {
