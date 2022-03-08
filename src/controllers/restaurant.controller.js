@@ -4,6 +4,8 @@ const db = require("../models");
 const Restaurant = db.restaurant;
 const RestaurantDay = db.restaurant_day;
 const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const { Op } = require("sequelize");
+
 
 const parseRestaurantData = (req, res) => {
     const filePath = "https://gist.githubusercontent.com/seahyc/7ee4da8a3fb75a13739bdf5549172b1f/raw/f1c3084250b1cb263198e433ae36ba8d7a0d9ea9/hours.csv";
@@ -129,7 +131,34 @@ function tConvert(time12h) {
 }
 
 const allRestaurants = (req, res) => {
-    Restaurant.findAll().then(restaurants => {
+    Restaurant.findAll({
+        include: [{
+            model: RestaurantDay,
+            // where: {
+            //     day: req.query.day
+            // }
+            // where: {
+            //     [Op.and]: [
+            //         { day: req.query.day },
+            //         {
+            //             [Op.or]: {
+            //                 time_from: {
+            //                     [Op.gte]: req.query.time,
+            //                 },
+            //                 time_to: {
+            //                     [Op.lte]: req.query.time
+            //                 }
+            //             }
+            //         }
+            //     ],
+            // }
+        }],
+        where: {
+            name: {
+                [Op.like]: '%' + req.query.name + '%'
+            }
+        }
+    }).then(restaurants => {
         res.status(200).json(restaurants);
     }).catch(err => {
         res.setStatus(500);
