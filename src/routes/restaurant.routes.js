@@ -3,7 +3,7 @@ var restaurantRoute = express.Router();
 const restaurantController = require('../controllers/restaurant.controller');
 
 // get all restaurants
-// restaurantRoute.get('/', restaurantController.getRestaurants);
+restaurantRoute.get('/', restaurantController.allRestaurants);
 
 // // get restaurant info
 // restaurantRoute.get('/:id', restaurantController.getRestaurant);

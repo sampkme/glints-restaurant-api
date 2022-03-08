@@ -128,7 +128,17 @@ function tConvert(time12h) {
     return `${hours}:${minutes}`;
 }
 
+const allRestaurants = (req, res) => {
+    Restaurant.findAll().then(restaurants => {
+        res.status(200).json(restaurants);
+    }).catch(err => {
+        res.setStatus(500);
+        res.end();
+    })
+};
+
 
 module.exports = {
-    parseRestaurantData
+    parseRestaurantData,
+    allRestaurants
 }
