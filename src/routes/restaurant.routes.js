@@ -5,11 +5,6 @@ const restaurantController = require('../controllers/restaurant.controller');
 // get all restaurants
 restaurantRoute.get('/', restaurantController.allRestaurants);
 
-// // get restaurant info
-// restaurantRoute.get('/:id', restaurantController.getRestaurant);
-
-
-restaurantRoute.get('/test', restaurantController.parseRestaurantData);
 
 // Fallback 
 restaurantRoute.get('*', function (req, res) {
