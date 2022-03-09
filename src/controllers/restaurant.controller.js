@@ -1,51 +1,48 @@
 const db = require("../models");
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const Restaurant = db.restaurant;
 const RestaurantDay = db.restaurant_day;
-const Sequelize = require("sequelize");
+const moment = require("moment");
 
 const allRestaurants = (req, res) => {
+    var restaurantDayWhereStatement = {};
+
+    if (req.query.day && req.query.time) {
+        restaurantDayWhereStatement = {
+            [Op.and]: [
+                {
+                    day: req.query.day,
+                },
+                {
+                    time_from: {
+                        [Op.gte]: req.query.time
+                    }
+                },
+                {
+                    time_to: {
+                        [Op.lte]: req.query.time
+                    }
+                }
+            ],
+
+        };
+    }
+
     Restaurant.findAll({
         include: [{
             model: RestaurantDay,
-            // where: {
-            //     day: req.query.day
-            // }
-            // where: {
-            //     [Op.and]: [
-            //         { day: req.query.day },
-            //         {
-            //             [Op.or]: {
-            //                 time_from: {
-            //                     [Op.gte]: req.query.time,
-            //                 },
-            //                 time_to: {
-            //                     [Op.lte]: req.query.time
-            //                 }
-            //             }
-            //         }
-            //     ],
-            // }
+            as: 'restaurant_days',
+            where: restaurantDayWhereStatement
         }],
-        // attributes: ['name'],
-        // where: {
-        //     // name: {
-        //     //     [Op.like]: '%' + req.query.name + '%'
-        //     // },
-        //     $and: [
-        //         Sequelize.where(
-        //             Sequelize.fn('lower', Sequelize.col('name')),
-        //             {
-        //                 $like: '%' + req.query.name + '%'
-        //             }
-        //         )
-        //     ]
-        // }
+        where: {
+            name: {
+                [Op.iLike]: '%' + req.query.name + '%'
+            },
+        }
     }).then(restaurants => {
         res.status(200).json(restaurants);
     }).catch(err => {
-        res.setStatus(500);
-        res.end();
+        res.status(500).send(err);
     })
 };
 
