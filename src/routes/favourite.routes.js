@@ -16,4 +16,10 @@ favouriteRoute.get(
     controller.allFavorites
 );
 
+favouriteRoute.post(
+    "/",
+    [authJwt.verifyToken],
+    controller.createFavourite
+);
+
 module.exports = favouriteRoute;
