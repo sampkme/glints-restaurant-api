@@ -25,12 +25,13 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.restaurant = require("../models/restaurant.model.js")(sequelize, Sequelize);
 db.restaurant_day = require("../models/restaurant-day.model.js")(sequelize, Sequelize);
-db.favorite = require("../models/favourite.model.js")(sequelize, Sequelize);
-db.favorite_restaurant = require("../models/favourite-restaurant.model.js")(sequelize, Sequelize);
+db.favourite = require("../models/favourite.model.js")(sequelize, Sequelize);
+db.favourite_restaurant = require("../models/favourite-restaurant.model.js")(sequelize, Sequelize);
 
 db.restaurant.hasMany(db.restaurant_day, { foreignKey: 'restaurant_id', sourceKey: 'id' });
-db.user.hasMany(db.favorite_restaurant, { foreignKey: 'user_id', sourceKey: 'id' });
-db.favorite.hasMany(db.favorite_restaurant, { foreignKey: 'favourite_id', sourceKey: 'id' });
+db.user.hasMany(db.favourite_restaurant, { foreignKey: 'user_id', sourceKey: 'id' });
+db.restaurant.hasOne(db.favourite_restaurant, { foreignKey: 'restaurant_id', sourceKey: 'id' });
+db.favourite_restaurant.belongsTo(db.favourite, { foreignKey: 'id', sourceKey: 'favourite_id' });
 
 const User = db.user;
 const Restaurant = db.restaurant;

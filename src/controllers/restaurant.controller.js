@@ -2,10 +2,13 @@ const db = require("../models");
 const { Op, Sequelize } = require("sequelize");
 const Restaurant = db.restaurant;
 const RestaurantDay = db.restaurant_day;
+const FavouriteRestaurant = db.favourite_restaurant;
+const Favourite = db.favourite;
 const moment = require("moment");
 
 const allRestaurants = (req, res) => {
     var restaurantDayWhereStatement = {};
+    var favouriteRestaurantWhereStatement = {};
 
     if (req.query.day && req.query.time) {
         restaurantDayWhereStatement = {
@@ -28,11 +31,23 @@ const allRestaurants = (req, res) => {
         };
     }
 
+    if (req.userId) {
+        favouriteRestaurantWhereStatement = {
+            user_id: req.userId
+        };
+    }
+
     Restaurant.findAll({
         include: [{
             model: RestaurantDay,
             as: 'restaurant_days',
             where: restaurantDayWhereStatement
+        },
+        {
+            model: FavouriteRestaurant,
+            required: false,
+            where: favouriteRestaurantWhereStatement,
+            include: [Favourite]
         }],
         where: {
             name: {

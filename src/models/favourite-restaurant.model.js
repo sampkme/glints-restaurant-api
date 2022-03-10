@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const FavoriteRestaurant = sequelize.define("favourite_restaurants", {
+    const FavouriteRestaurant = sequelize.define("favourite_restaurants", {
         favourite_id: {
             type: Sequelize.BIGINT,
         },
@@ -10,5 +10,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BIGINT
         },
     });
-    return FavoriteRestaurant;
+    return FavouriteRestaurant;
 };

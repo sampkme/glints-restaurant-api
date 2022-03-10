@@ -13,7 +13,7 @@ favouriteRoute.use(function (req, res, next) {
 favouriteRoute.get(
     "/",
     [authJwt.verifyToken],
-    controller.allFavorites
+    controller.allFavourites
 );
 
 favouriteRoute.post(

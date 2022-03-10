@@ -1,8 +1,8 @@
 const db = require("../models");
-const Favourite = db.favorite;
-const FavouriteRestaurant = db.favorite_restaurant;
+const Favourite = db.favourite;
+const FavouriteRestaurant = db.favourite_restaurant;
 
-const allFavorites = (req, res) => {
+const allFavourites = (req, res) => {
     Favourite.findAll({
         where: {
             user_id: req.userId
@@ -43,12 +43,11 @@ const createFavourite = (req, res) => {
         }
     }
     catch (error) {
-        res.status(500);
-        res.end();
+        return res.status(500).json(error);
     }
 };
 
 module.exports = {
-    allFavorites,
+    allFavourites,
     createFavourite
 };

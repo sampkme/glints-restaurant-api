@@ -1,9 +1,14 @@
 var express = require('express');
 var restaurantRoute = express.Router();
 const restaurantController = require('../controllers/restaurant.controller');
+const { authJwt } = require('../middleware');
 
 // get all restaurants
-restaurantRoute.get('/', restaurantController.allRestaurants);
+restaurantRoute.get(
+    '/',
+    [authJwt.addToken],
+    restaurantController.allRestaurants
+);
 
 
 // Fallback 

@@ -21,7 +21,21 @@ verifyToken = (req, res, next) => {
     });
 };
 
+addToken = (req, res, next) => {
+    let token = req.headers["x-access-token"];
+    jwt.verify(token, config.secret, (err, decoded) => {
+        if (!err && decoded) {
+            req.userId = decoded.id;
+        }
+        else {
+            req.userId = "";
+        }
+        next();
+    });
+};
+
 const authJwt = {
     verifyToken: verifyToken,
+    addToken: addToken
 };
 module.exports = authJwt;
