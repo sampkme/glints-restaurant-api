@@ -1,5 +1,6 @@
 var express = require('express');
 const authRoute = require('./auth.routes');
+const favouriteRoute = require('./favourite.routes');
 const restaurantRoute = require('./restaurant.routes');
 const userRoute = require('./user.routes');
 var router = express.Router();
@@ -17,6 +18,9 @@ router.use('/restaurants', restaurantRoute);
 
 // users route
 router.use('/users', userRoute);
+
+// favourite route
+router.use('/favourites', favouriteRoute);
 
 // Fallback 
 router.get('*', function (req, res) {

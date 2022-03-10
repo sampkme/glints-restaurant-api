@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //sequelize syncing
-db.sequelize.sync();
+// db.sequelize.sync();
 
 // Route
 app.get('/', function (req, res) {
